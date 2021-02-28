@@ -1,5 +1,5 @@
 # Use NodeJS base image
-FROM node:alpine3.10
+FROM node:12.21.0-alpine3.10
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -10,7 +10,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN npm audit fix
+RUN npm update
 # Copy app source
 COPY . .
 
