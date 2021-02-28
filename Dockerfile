@@ -1,5 +1,5 @@
 # Use NodeJS base image
-FROM node:13
+FROM node:alpine3.10
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -10,7 +10,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-
+RUN npm audit fix
 # Copy app source
 COPY . .
 
@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 8080
 
 # Define the Docker image's behavior at runtime
-CMD ["node", "server.js"]
+CMD ["npm", "run", "prod"]
