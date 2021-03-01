@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udagram-user-api-app
+  name: udagram-user-api-deploy
   labels:
     app: udagram-user-api-app
 spec:
@@ -11,11 +11,31 @@ spec:
       app: udagram-user-api-app
   template:
     metadata:
+      name: udagram-user-api-pod
       labels:
-        app: udagram-user-api-app
+        app: udagram-user-api-app # Pod label
     spec:
       containers:
       - name: udagram-user-api
-        image: suneetsinghrana/udagram-user-api
+        image: docker.io/suneetsinghrana/udagram-user-api:latest
+        env:
+        - name: AWS_BUCKET
+          value: "udagram-suneet-dev"
+        - name: AWS_PROFILE
+          value: "default"
+        - name: AWS_REGION
+          value: "us-east-1"
+        - name: URL
+          value: "http://localhost:8100"
+        - name: JWT_SECRET
+          value: "suneetsinghrana"
+        - name: POSTGRES_DB
+          value: "udagramDB"
+        - name: POSTGRES_HOST
+          value: "udagramdevdb.cgrjultsx5tx.us-east-1.rds.amazonaws.com"
+        - name: POSTGRES_PASSWORD
+          value: "udagramdevdb"
+        - name: POSTGRES_USERNAME
+          value: "udagramdevdb"
         ports:
         - containerPort: 8080
